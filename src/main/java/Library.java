@@ -37,4 +37,19 @@ public class Library {
         }
         return true;
     }
+
+    public Book removeBook(Book book) {
+        if(isBookInLibrary(book)){
+            int index = books.indexOf(book);
+            return books.remove(index);
+        }
+        return null;
+    }
+
+    public boolean isBookInLibrary(Book book) {
+        if(this.books.contains(book)){
+            return true;
+        }
+        return false;
+    }
 }

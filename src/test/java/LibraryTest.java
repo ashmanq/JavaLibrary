@@ -7,10 +7,12 @@ public class LibraryTest {
 
     private Library library;
     private Book book;
+    private Book book2;
 
     @Before
     public void before(){
         book = new Book("1984", "George Orwell", "Dystopian Fiction");
+        book2 = new Book("The Subtle Art Of Not Giving A F*ck", "Mark Manson", "Self Help");
         library = new Library("Motherwell Library", 10);
     }
 
@@ -32,6 +34,32 @@ public class LibraryTest {
     @Test
     public void canAddBookToLibrary(){
         library.addBook(book);
+        assertEquals(1, library.getNoOfBooks());
+    }
+
+    @Test
+    public void bookIsInLibrary(){
+        library.addBook(book);
+        assertEquals(true, library.isBookInLibrary(book));
+    }
+
+    @Test
+    public void bookIsNotInLibrary(){
+        library.addBook(book);
+        assertEquals(false, library.isBookInLibrary(book2));
+    }
+
+    @Test
+    public void canRemoveBookFromLibraryWhenBookInLibrary(){
+        library.addBook(book);
+        library.removeBook(book);
+        assertEquals(0, library.getNoOfBooks());
+    }
+
+    @Test
+    public void canNotRemoveBookFromLibraryWhenBookIsNotInLibrary(){
+        library.addBook(book);
+        library.removeBook(book2);
         assertEquals(1, library.getNoOfBooks());
     }
 
