@@ -1,4 +1,9 @@
+import com.sun.codemodel.internal.JForEach;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.stream.Stream;
 
 public class Library {
 
@@ -51,5 +56,36 @@ public class Library {
             return true;
         }
         return false;
+    }
+
+    // Method to get unique lsit of genres from books in Library class
+    public ArrayList<String> getListOfUniqueGenres() {
+        ArrayList<String> genres = new ArrayList<String>();
+        for(Book book : this.books) {
+            if(!genres.contains(book.getGenre())) {
+                genres.add(book.getGenre());
+            }
+        }
+        return genres;
+    }
+
+    // Method that takes unique genre list and counts no of books
+    // for each genre
+    public HashMap<String, Integer> getBookNosByGenre() {
+        ArrayList<String> genres = this.getListOfUniqueGenres();
+        HashMap<String, Integer> bookNoByGenre = new HashMap<>();
+
+        genres.forEach(genre -> {
+            bookNoByGenre.put(genre, 0);
+
+            this.books.forEach(book -> {
+                if(book.getGenre() == genre){
+                    int count = bookNoByGenre.get(genre);
+                    bookNoByGenre.put(genre, count+1);
+                }
+            });
+        });
+
+        return bookNoByGenre;
     }
 }
